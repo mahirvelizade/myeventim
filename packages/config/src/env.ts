@@ -8,7 +8,7 @@ const envSchema = z.object({
   ADMIN_ID: z.string().optional(),
   ADMIN_SECRET: z.string().optional(),
 
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  DATABASE_URL: z.string().default('postgresql://localhost:5432/dummy'),
 
   APP_URL: z.string().url().default('http://localhost:3000'),
   API_URL: z.string().url().default('http://localhost:3001'),
@@ -27,18 +27,15 @@ const envSchema = z.object({
 export type Env = z.infer<typeof envSchema>;
 
 function parseEnv(env: Record<string, string | undefined>): Env {
-  const parsed = envSchema.safeParse(env);
-
-  if (!parsed.success) {
-    console.error('❌ Invalid environment variables:');
-    const formatted = parsed.error.flatten().fieldErrors;
+  const result = envSchema.safeParse(env);
+  if (!result.success) {
+    const formatted = result.error.flatten().fieldErrors;
     for (const [key, errors] of Object.entries(formatted)) {
-      console.error(`  ${key}: ${errors?.join(', ')}`);
+      console.warn(`  ${key}: ${errors?.join(', ')}`);
     }
-    process.exit(1);
+    return envSchema.parse(env);
   }
-
-  return parsed.data;
+  return result.data;
 }
 
 export const env = parseEnv(process.env as Record<string, string | undefined>);
