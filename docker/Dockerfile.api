@@ -1,46 +1,27 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine
 RUN apk add --no-cache libc6-compat wget
 RUN corepack enable && corepack prepare pnpm@9.12.0 --activate
 WORKDIR /app
 
-FROM base AS deps
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
-COPY apps/api/package.json ./apps/api/
-COPY packages/types/package.json ./packages/types/
-COPY packages/config/package.json ./packages/config/
-COPY packages/shared/package.json ./packages/shared/
-COPY packages/validators/package.json ./packages/validators/
-RUN pnpm install --frozen-lockfile --filter @invitely/api
-
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
-COPY --from=deps /app/packages ./packages
-COPY package.json pnpm-workspace.yaml tsconfig.json turbo.json ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.json turbo.json ./
 COPY apps/api ./apps/api
 COPY packages/types ./packages/types
 COPY packages/config ./packages/config
 COPY packages/shared ./packages/shared
 COPY packages/validators ./packages/validators
-RUN pnpm --filter @invitely/api build
-RUN pnpm --filter @invitely/api db:generate
 
-FROM base AS runner
-WORKDIR /app
+RUN pnpm install --frozen-lockfile
+RUN npx prisma generate --schema=apps/api/prisma/schema.prisma
+
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 hono && \
     mkdir -p /app/storage && \
     chown -R hono:nodejs /app/storage
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/apps/api/package.json ./
-COPY --from=builder /app/apps/api/node_modules ./node_modules
-COPY --from=builder /app/apps/api/prisma ./prisma
+
 USER hono
 EXPOSE 3001
 ENV NODE_ENV=production
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3001/health || exit 1
 
-# Graceful shutdown handling with SIGTERM
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
+CMD ["sh", "-c", "npx prisma db push --schema=apps/api/prisma/schema.prisma --skip-generate && npx tsx apps/api/src/index.ts"]

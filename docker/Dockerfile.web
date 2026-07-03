@@ -11,12 +11,11 @@ COPY packages/config/package.json ./packages/config/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/validators/package.json ./packages/validators/
 COPY packages/ui/package.json ./packages/ui/
-RUN pnpm install --frozen-lockfile --filter @invitely/web
+RUN pnpm install --frozen-lockfile --filter @invitely/web...
 
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY --from=deps /app/packages ./packages
 COPY package.json pnpm-workspace.yaml tsconfig.json turbo.json ./
 COPY apps/web ./apps/web
@@ -27,9 +26,6 @@ COPY packages/validators ./packages/validators
 COPY packages/ui ./packages/ui
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NEXT_PUBLIC_BOT_USERNAME=${NEXT_PUBLIC_BOT_USERNAME}
 RUN pnpm --filter @invitely/web build
 
 FROM base AS runner
