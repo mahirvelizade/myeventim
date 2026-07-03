@@ -11,7 +11,7 @@ COPY packages/shared ./packages/shared
 COPY packages/validators ./packages/validators
 
 RUN pnpm install --frozen-lockfile
-RUN npx prisma generate --schema=apps/api/prisma/schema.prisma
+RUN pnpm prisma generate --schema=apps/api/prisma/schema.prisma
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 hono && \
@@ -24,4 +24,4 @@ ENV NODE_ENV=production
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3001/health || exit 1
 
-CMD ["sh", "-c", "npx prisma db push --schema=apps/api/prisma/schema.prisma --skip-generate && npx tsx apps/api/src/index.ts"]
+CMD ["sh", "-c", "pnpm prisma db push --schema=apps/api/prisma/schema.prisma --skip-generate && pnpm tsx apps/api/src/index.ts"]
