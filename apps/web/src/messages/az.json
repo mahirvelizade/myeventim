@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "Invitely",
+    "description": "Gözəl rəqəmsal dəvət kartları yaradın"
+  },
+  "wizard": {
+    "step1": "Kateqoriya",
+    "step2": "Məlumat",
+    "step3": "Şablon",
+    "step4": "Ön baxış",
+    "step5": "Düzəliş",
+    "step6": "Yarat",
+    "step7": "Endir",
+    "next": "Davam et",
+    "back": "Geri"
+  },
+  "category": {
+    "title": "Dəvət növünü seçin",
+    "subtitle": "Hansı növ dəvət kartı yaratmaq istəyirsiniz?",
+    "birthday": "Ad günü",
+    "wedding": "Toy",
+    "party": "Parti",
+    "corporate": "Korporativ",
+    "graduation": "Məzuniyyət",
+    "baby": "Beşik",
+    "holiday": "Bayram",
+    "other": "Digər"
+  },
+  "information": {
+    "title": "Məlumatları daxil edin",
+    "subtitle": "Dəvət kartınızda göstəriləcək məlumatlar",
+    "title_label": "Başlıq",
+    "title_placeholder": "Məs: Ad günü dəvəti",
+    "description_label": "Açıqlama",
+    "description_placeholder": "Əlavə məlumat...",
+    "date_label": "Tarix",
+    "time_label": "Saat",
+    "location_label": "Məkan",
+    "location_placeholder": "Məkan adı",
+    "host_label": "Ev sahibi",
+    "host_placeholder": "Adınız",
+    "guest_label": "Qonaq adı",
+    "dress_code_label": "Geyim kodu"
+  },
+  "template": {
+    "title": "Şablon seçin",
+    "subtitle": "Dəvət kartınızın dizaynını seçin"
+  },
+  "preview": {
+    "title": "Ön baxış",
+    "subtitle": "Dəvət kartınızın görünüşü",
+    "customize": "Fərdiləşdir"
+  },
+  "customize": {
+    "title": "Fərdiləşdirin",
+    "subtitle": "Rəng və üslubu dəyişin",
+    "accent_color": "Vurğu rəngi",
+    "font_size": "Şrift ölçüsü",
+    "small": "Kiçik",
+    "medium": "Orta",
+    "large": "Böyük"
+  },
+  "generate": {
+    "title": "Kartı yaradın",
+    "subtitle": "Dəvət kartınız hazırlanır",
+    "description": "Dəvət kartınız hazırlanır. Bu bir neçə saniyə çəkə bilər.",
+    "button": "Kartı yarat",
+    "loading": "Hazırlanır..."
+  },
+  "download": {
+    "title": "Kart hazırdır!",
+    "subtitle": "Dəvət kartınız uğurla yaradıldı",
+    "png": "Şəkil kimi endir (PNG)",
+    "pdf": "PDF kimi endir",
+    "share": "Paylaş",
+    "my_invitations": "Dəvətlərinizi \"Dəvətlərim\" bölməsində tapa bilərsiniz"
+  },
+  "common": {
+    "save": "Yadda saxla",
+    "cancel": "Ləğv et",
+    "delete": "Sil",
+    "confirm": "Təsdiq et",
+    "loading": "Yüklənir...",
+    "error": "Xəta baş verdi",
+    "retry": "Yenidən cəhd edin",
+    "empty": "Heç nə tapılmadı"
+  },
+  "settings": {
+    "title": "Parametrlər",
+    "language": "Dil",
+    "theme": "Mövzu",
+    "light": "Açıq",
+    "dark": "Qaranlıq",
+    "system": "Sistem"
+  }
+}

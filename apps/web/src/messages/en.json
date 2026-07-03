@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "Invitely",
+    "description": "Create beautiful digital invitation cards"
+  },
+  "wizard": {
+    "step1": "Category",
+    "step2": "Information",
+    "step3": "Template",
+    "step4": "Preview",
+    "step5": "Customize",
+    "step6": "Generate",
+    "step7": "Download",
+    "next": "Continue",
+    "back": "Back"
+  },
+  "category": {
+    "title": "Choose invitation type",
+    "subtitle": "What type of invitation card would you like to create?",
+    "birthday": "Birthday",
+    "wedding": "Wedding",
+    "party": "Party",
+    "corporate": "Corporate",
+    "graduation": "Graduation",
+    "baby": "Baby Shower",
+    "holiday": "Holiday",
+    "other": "Other"
+  },
+  "information": {
+    "title": "Enter information",
+    "subtitle": "Information to be displayed on your invitation card",
+    "title_label": "Title",
+    "title_placeholder": "E.g., Birthday invitation",
+    "description_label": "Description",
+    "description_placeholder": "Additional information...",
+    "date_label": "Date",
+    "time_label": "Time",
+    "location_label": "Location",
+    "location_placeholder": "Venue name",
+    "host_label": "Host",
+    "host_placeholder": "Your name",
+    "guest_label": "Guest name",
+    "dress_code_label": "Dress code"
+  },
+  "template": {
+    "title": "Choose template",
+    "subtitle": "Select the design of your invitation card"
+  },
+  "preview": {
+    "title": "Preview",
+    "subtitle": "How your invitation card looks",
+    "customize": "Customize"
+  },
+  "customize": {
+    "title": "Customize",
+    "subtitle": "Change colors and style",
+    "accent_color": "Accent color",
+    "font_size": "Font size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large"
+  },
+  "generate": {
+    "title": "Generate card",
+    "subtitle": "Your invitation card is being prepared",
+    "description": "Your invitation card is being generated. This may take a few seconds.",
+    "button": "Generate card",
+    "loading": "Generating..."
+  },
+  "download": {
+    "title": "Card is ready!",
+    "subtitle": "Your invitation card has been created successfully",
+    "png": "Download as PNG",
+    "pdf": "Download as PDF",
+    "share": "Share",
+    "my_invitations": "You can find your invitations in \"My Invitations\" section"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "empty": "Nothing found"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}

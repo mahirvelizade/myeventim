@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local", "tsconfig.json"],
+  "globalEnv": [
+    "NODE_ENV",
+    "BOT_TOKEN",
+    "DATABASE_URL",
+    "ADMIN_ID",
+    "APP_URL",
+    "API_URL",
+    "STORAGE_DRIVER",
+    "STORAGE_PATH",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_BOT_USERNAME"
+  ],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", ".turbo/**"]
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "db:generate": {},
+    "db:push": {},
+    "db:migrate": {},
+    "db:seed": {},
+    "db:studio": {}
+  }
+}

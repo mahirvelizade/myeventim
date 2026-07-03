@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@invitely/types": ["./packages/types/src"],
+      "@invitely/types/*": ["./packages/types/src/*"],
+      "@invitely/config": ["./packages/config/src"],
+      "@invitely/config/*": ["./packages/config/src/*"],
+      "@invitely/shared": ["./packages/shared/src"],
+      "@invitely/shared/*": ["./packages/shared/src/*"],
+      "@invitely/validators": ["./packages/validators/src"],
+      "@invitely/validators/*": ["./packages/validators/src/*"],
+      "@invitely/ui": ["./packages/ui/src"],
+      "@invitely/ui/*": ["./packages/ui/src/*"],
+      "@invitely/templates": ["./packages/templates/src"],
+      "@invitely/templates/*": ["./packages/templates/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".next", "coverage"]
+}
