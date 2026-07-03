@@ -25,6 +25,29 @@ app.use('/api/*', authMiddleware);
 
 app.route('/api', apiRouter);
 
+app.get('/', (c) => {
+  return c.html(`<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitely</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
+    .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+    h1 { color: #333; margin: 0 0 0.5rem; }
+    p { color: #666; margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Invitely</h1>
+    <p>Dəvət kartı generatoru</p>
+  </div>
+</body>
+</html>`);
+});
+
 app.get('/health', (c) => {
   return c.json({
     status: 'ok',
