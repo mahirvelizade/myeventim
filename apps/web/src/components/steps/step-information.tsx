@@ -36,22 +36,21 @@ export function StepInformation() {
 
   const schemaObj: Record<string, z.ZodTypeAny> = {};
   (category?.fields || []).forEach((field) => {
-    let base: z.ZodTypeAny = z.string();
+    let base: z.ZodString = z.string();
     if (field.required) {
       base = base.min(1, `${field.label} tələb olunur`);
-    } else {
-      base = base.optional().or(z.literal(''));
     }
     if (field.maxLength) {
       base = base.max(field.maxLength);
     }
     if (field.type === 'email') {
-      base = base.email('Düzgün email daxil edin').or(z.literal(''));
+      base = base.email('Düzgün email daxil edin');
     }
     if (field.type === 'number') {
-      base = z.string().optional().or(z.literal(''));
+      schemaObj[field.key] = z.string().optional().or(z.literal(''));
+      return;
     }
-    schemaObj[field.key] = base;
+    schemaObj[field.key] = field.required ? base : base.optional().or(z.literal(''));
   });
 
   const formSchema = z.object(schemaObj);
