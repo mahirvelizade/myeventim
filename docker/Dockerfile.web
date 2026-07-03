@@ -1,5 +1,5 @@
 FROM node:20-alpine AS base
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat openssl
 RUN corepack enable && corepack prepare pnpm@9.12.0 --activate
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY packages/config/package.json ./packages/config/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/validators/package.json ./packages/validators/
 COPY packages/ui/package.json ./packages/ui/
-RUN pnpm install --frozen-lockfile --filter @invitely/web...
+RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
@@ -26,7 +26,7 @@ COPY packages/validators ./packages/validators
 COPY packages/ui ./packages/ui
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-RUN pnpm --filter @invitely/web build
+RUN cd apps/web && npx next build
 
 FROM base AS runner
 WORKDIR /app
