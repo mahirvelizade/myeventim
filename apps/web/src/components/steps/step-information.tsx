@@ -36,7 +36,7 @@ export function StepInformation() {
 
   const schemaObj: Record<string, z.ZodTypeAny> = {};
   (category?.fields || []).forEach((field) => {
-    let base = z.string();
+    let base: z.ZodTypeAny = z.string();
     if (field.required) {
       base = base.min(1, `${field.label} tələb olunur`);
     } else {
