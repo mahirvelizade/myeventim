@@ -11,7 +11,7 @@ COPY packages/shared ./packages/shared
 COPY packages/validators ./packages/validators
 
 RUN pnpm install --frozen-lockfile
-RUN pnpm --filter @invitely/api exec prisma generate --schema=apps/api/prisma/schema.prisma
+RUN pnpm --filter @invitely/api exec prisma generate --schema=prisma/schema.prisma
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 hono && \
