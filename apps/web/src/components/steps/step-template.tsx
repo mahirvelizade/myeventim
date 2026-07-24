@@ -21,38 +21,33 @@ export function StepTemplate() {
 
   if (!filteredTemplates.length) {
     return (
-      <div className="space-y-4">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Şablon seçin</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Bu kateqoriya üçün hələ şablon yoxdur
-          </p>
-        </div>
+      <div className="pt-4 text-center">
+        <p className="text-muted-foreground">Bu kateqoriya üçün hələ şablon yoxdur</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Şablon seçin</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+    <div className="space-y-3">
+      <div className="pt-1">
+        <h1 className="text-xl font-bold">Şablon seçin</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
           Dəvət kartınızın dizaynını seçin
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5">
         {filteredTemplates.map((tmpl) => (
           <Card
             key={tmpl.id}
-            className={`cursor-pointer overflow-hidden transition-all hover:shadow-md active:scale-[0.98] ${
+            className={`cursor-pointer overflow-hidden transition-all duration-150 active:scale-[0.97] ${
               selectedTemplate?.id === tmpl.id
-                ? 'border-primary ring-2 ring-primary'
-                : ''
+                ? 'ring-2 ring-primary border-primary'
+                : 'border-border/60 hover:border-primary/40'
             }`}
             onClick={() => handleSelect(tmpl)}
           >
             <div
-              className="h-28 flex items-center justify-center p-3"
+              className="h-24 flex items-center justify-center p-3"
               style={{ background: tmpl.background }}
             >
               <div className="text-center">
@@ -63,7 +58,7 @@ export function StepTemplate() {
                   {tmpl.defaultText.title || tmpl.name}
                 </p>
                 <p
-                  className="text-[10px] mt-1 opacity-70"
+                  className="text-[10px] mt-0.5 opacity-70"
                   style={{ color: tmpl.colors.primary }}
                 >
                   {tmpl.font}
@@ -73,16 +68,12 @@ export function StepTemplate() {
             <CardContent className="p-3">
               <div className="flex items-center justify-between">
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium truncate">{tmpl.name}</p>
-                  <p className="text-[10px] text-muted-foreground truncate">
-                    {tmpl.description}
-                  </p>
+                  <p className="text-sm font-semibold truncate">{tmpl.name}</p>
+                  <p className="text-[10px] text-muted-foreground/70 truncate">{tmpl.description}</p>
                 </div>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className="ml-2 rounded-full p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                  onClick={(e) => { e.stopPropagation(); }}
+                  className="ml-2 rounded-full p-1.5 text-muted-foreground/50 hover:text-rose-400 transition-colors"
                 >
                   <Heart className="h-3.5 w-3.5" />
                 </button>

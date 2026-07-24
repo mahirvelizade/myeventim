@@ -21,26 +21,28 @@ export function StepCategory() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Dəvət növünü seçin</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+    <div className="space-y-3">
+      <div className="pt-1">
+        <h1 className="text-xl font-bold">Dəvət növünü seçin</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
           Hansı növ dəvət kartı yaratmaq istəyirsiniz?
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5">
         {categories.map((cat) => {
           const Icon = iconMap[cat.icon] || PartyPopper;
           return (
             <Card
               key={cat.id}
-              className="cursor-pointer transition-all hover:border-primary hover:shadow-md active:scale-[0.98]"
+              className="cursor-pointer border-border/60 hover:border-primary/40 hover:shadow-sm active:scale-[0.97] transition-all duration-150"
               onClick={() => handleSelect(cat)}
             >
-              <CardContent className="flex flex-col items-center gap-2 p-5">
-                <Icon className={`h-8 w-8 ${cat.color}`} />
-                <span className="text-sm font-medium">{cat.name}</span>
-                <span className="text-[10px] text-muted-foreground text-center leading-tight">
+              <CardContent className="flex flex-col items-center gap-2 p-4">
+                <div className={`rounded-full p-2.5 ${cat.color.replace('text', 'bg')}/10`}>
+                  <Icon className={`h-6 w-6 ${cat.color}`} />
+                </div>
+                <span className="text-sm font-semibold">{cat.name}</span>
+                <span className="text-[10px] text-muted-foreground/70 text-center leading-tight line-clamp-2">
                   {cat.description}
                 </span>
               </CardContent>

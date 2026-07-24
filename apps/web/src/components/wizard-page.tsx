@@ -12,16 +12,6 @@ import { StepCustomize } from './steps/step-customize';
 import { StepGenerate } from './steps/step-generate';
 import { StepDownload } from './steps/step-download';
 
-const steps = [
-  { id: 1, label: 'Kateqoriya' },
-  { id: 2, label: 'Məlumat' },
-  { id: 3, label: 'Şablon' },
-  { id: 4, label: 'Ön baxış' },
-  { id: 5, label: 'Düzəliş' },
-  { id: 6, label: 'Yarat' },
-  { id: 7, label: 'Endir' },
-];
-
 const stepComponents: Record<number, React.FC> = {
   1: StepCategory,
   2: StepInformation,
@@ -77,12 +67,12 @@ export function WizardPage() {
   const StepComponent = stepComponents[currentStep];
 
   return (
-    <div className="flex min-h-screen flex-col px-4 py-3">
-      <div className="mb-3 -mx-1">
-        <StepIndicator steps={steps} currentStep={currentStep} />
+    <div className="flex min-h-screen flex-col">
+      <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm px-4 pt-3 pb-2">
+        <StepIndicator currentStep={currentStep} totalSteps={7} />
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1 px-4 pb-6">
         <AnimatedContainer key={currentStep} animation="slideInRight">
           {StepComponent ? <StepComponent /> : null}
         </AnimatedContainer>

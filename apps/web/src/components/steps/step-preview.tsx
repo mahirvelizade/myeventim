@@ -4,120 +4,90 @@ import { useAppStore } from '@/store/use-app-store';
 import { Card, CardContent, Button } from '@invitely/ui';
 import { Calendar, Clock, MapPin, Phone, Mail } from 'lucide-react';
 
-const previewIconMap: Record<string, React.FC<{ className?: string }>> = {
-  date: Calendar,
-  time: Clock,
-  location: MapPin,
-  address: MapPin,
-  phone: Phone,
-  email: Mail,
-};
-
 export function StepPreview() {
   const { selectedCategory, selectedTemplate, formData, customization, nextStep, prevStep } = useAppStore();
 
   const template = selectedTemplate;
-
   const isWedding = selectedCategory?.id === 'wedding' || selectedCategory?.id === 'engagement';
 
   return (
-    <div className="space-y-4">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Ön baxış</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Dəvət kartınızın görünüşü
-        </p>
+    <div className="space-y-3">
+      <div className="pt-1">
+        <h1 className="text-xl font-bold">Ön baxış</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">Dəvət kartınızın görünüşü</p>
       </div>
 
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden border-border/60">
         <div
-          className="relative min-h-[320px] flex items-center justify-center p-6"
+          className="relative flex items-center justify-center p-5"
           style={{
+            minHeight: 340,
             background: template
               ? template.backgroundVariants[customization.backgroundVariant] || template.background
               : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
           }}
         >
           <div
-            className="w-full max-w-xs rounded-2xl p-6 text-center shadow-lg backdrop-blur-sm"
+            className="w-full max-w-[260px] rounded-2xl p-5 text-center shadow-lg backdrop-blur-sm"
             style={{
               backgroundColor: `${customization.secondaryColor}15`,
               border: `1px solid ${customization.primaryColor}30`,
             }}
           >
             {template && (
-              <p
-                className="text-xs font-bold tracking-widest mb-3"
-                style={{ color: customization.primaryColor }}
-              >
+              <p className="text-[10px] font-bold tracking-[0.15em] mb-2" style={{ color: customization.primaryColor }}>
                 {template.defaultText.title || 'DƏVƏT'}
               </p>
             )}
 
             {isWedding && formData.brideName && formData.groomName && (
-              <p
-                className="text-lg font-bold mb-2"
-                style={{ color: customization.primaryColor, textAlign: customization.alignment }}
-              >
+              <p className="text-base font-bold mb-1.5" style={{ color: customization.primaryColor, textAlign: customization.alignment }}>
                 {formData.brideName} & {formData.groomName}
               </p>
             )}
 
             {formData.hostName && !isWedding && (
-              <p
-                className="text-lg font-semibold mb-2"
-                style={{ color: customization.primaryColor, textAlign: customization.alignment }}
-              >
+              <p className="text-base font-semibold mb-1.5" style={{ color: customization.primaryColor, textAlign: customization.alignment }}>
                 {formData.hostName}
               </p>
             )}
 
             {formData.eventTitle && (
-              <p
-                className="text-base font-medium mb-2"
-                style={{ color: customization.primaryColor, textAlign: customization.alignment }}
-              >
+              <p className="text-sm font-medium mb-1" style={{ color: customization.primaryColor, textAlign: customization.alignment }}>
                 {formData.eventTitle}
               </p>
             )}
 
-            <div
-              className="space-y-2 mt-4 text-sm"
-              style={{ textAlign: customization.alignment }}
-            >
+            <div className="space-y-1.5 mt-3 text-xs" style={{ textAlign: customization.alignment }}>
               {formData.date && (
-                <div className="flex items-center justify-center gap-2" style={{ justifyContent: customization.alignment === 'center' ? 'center' : customization.alignment === 'left' ? 'flex-start' : 'flex-end' }}>
-                  <Calendar className="h-3.5 w-3.5" style={{ color: customization.primaryColor }} />
-                  <span>{formData.date}</span>
-                </div>
+                <span className="flex items-center justify-center gap-1.5">
+                  <Calendar className="h-3 w-3" style={{ color: customization.primaryColor }} />
+                  <span className="text-foreground/70">{formData.date}</span>
+                </span>
               )}
               {formData.time && (
-                <div className="flex items-center justify-center gap-2">
-                  <Clock className="h-3.5 w-3.5" style={{ color: customization.primaryColor }} />
-                  <span>{formData.time}</span>
-                </div>
+                <span className="flex items-center justify-center gap-1.5">
+                  <Clock className="h-3 w-3" style={{ color: customization.primaryColor }} />
+                  <span className="text-foreground/70">{formData.time}</span>
+                </span>
               )}
               {formData.location && (
-                <div className="flex items-center justify-center gap-2">
-                  <MapPin className="h-3.5 w-3.5" style={{ color: customization.primaryColor }} />
-                  <span>{formData.location}</span>
-                </div>
+                <span className="flex items-center justify-center gap-1.5">
+                  <MapPin className="h-3 w-3" style={{ color: customization.primaryColor }} />
+                  <span className="text-foreground/70">{formData.location}</span>
+                </span>
               )}
               {formData.address && (
-                <p className="text-xs text-muted-foreground">{formData.address}</p>
+                <p className="text-[10px] text-muted-foreground/60 mt-0.5">{formData.address}</p>
               )}
             </div>
           </div>
         </div>
       </Card>
 
-      <div className="flex gap-3">
-        <Button variant="outline" className="flex-1" onClick={prevStep}>
-          Geri
-        </Button>
-        <Button className="flex-1" onClick={nextStep}>
-          Fərdiləşdir
-        </Button>
+      <div className="flex gap-2.5 pt-1">
+        <Button variant="outline" className="flex-1" onClick={prevStep}>Geri</Button>
+        <Button className="flex-1" onClick={nextStep}>Fərdiləşdir</Button>
       </div>
     </div>
   );
