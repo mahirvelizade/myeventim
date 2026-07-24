@@ -3,8 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useTelegram } from '@/providers/telegram-provider';
 import { useAppStore } from '@/store/use-app-store';
-import { StepIndicator } from '@invitely/ui';
-import { AnimatedContainer } from '@invitely/ui';
+import { StepIndicator, AnimatedContainer } from '@invitely/ui';
 import { StepCategory } from './steps/step-category';
 import { StepInformation } from './steps/step-information';
 import { StepTemplate } from './steps/step-template';
@@ -78,8 +77,8 @@ export function WizardPage() {
   const StepComponent = stepComponents[currentStep];
 
   return (
-    <div className="flex min-h-screen flex-col p-4">
-      <div className="mb-6 mt-2">
+    <div className="flex min-h-screen flex-col px-4 py-3">
+      <div className="mb-3 -mx-1">
         <StepIndicator steps={steps} currentStep={currentStep} />
       </div>
 

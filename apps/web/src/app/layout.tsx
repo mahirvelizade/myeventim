@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from '@invitely/ui';
 import { TelegramProvider } from '@/providers/telegram-provider';
-import { WizardProvider } from '@/providers/wizard-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -29,9 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-background antialiased">
         <ThemeProvider>
           <TelegramProvider>
-            <WizardProvider>
-              {children}
-            </WizardProvider>
+            {children}
           </TelegramProvider>
         </ThemeProvider>
       </body>

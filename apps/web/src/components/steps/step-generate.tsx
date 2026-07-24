@@ -1,13 +1,20 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useAppStore } from '@/store/use-app-store';
 import { Button, Card, CardContent, Progress } from '@invitely/ui';
 import { Sparkles } from 'lucide-react';
+import { renderInvitationToCanvas } from '@invitely/shared';
+import templates from '@/schemas/templates';
 
 export function StepGenerate() {
-  const { selectedCategory, selectedTemplate, formData, customization, setGenerating, setGenerationProgress, generationProgress, isGenerating, nextStep, addInvitation } = useAppStore();
+  const {
+    selectedCategory, selectedTemplate, formData, customization,
+    setGenerating, setGenerationProgress, generationProgress,
+    isGenerating, nextStep, addInvitation,
+  } = useAppStore();
   const [started, setStarted] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleGenerate = useCallback(async () => {
     if (isGenerating) return;
@@ -15,44 +22,66 @@ export function StepGenerate() {
     setGenerating(true);
     setGenerationProgress(0);
 
-    const interval = setInterval(() => {
+    const template = templates.find(t => t.id === selectedTemplate?.id)
+    if (!template || !selectedCategory) {
+      setGenerating(false);
+      return;
+    }
+
+    const progressInterval = setInterval(() => {
       setGenerationProgress((prev) => {
-        if (prev >= 95) {
-          clearInterval(interval);
-          return 95;
+        if (prev >= 90) {
+          clearInterval(progressInterval);
+          return 90;
         }
-        return prev + 5;
+        return prev + 10;
       });
-    }, 100);
+    }, 150);
 
-    // Simulate generation delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const canvas = canvasRef.current;
+      if (!canvas) throw new Error('Canvas not available');
+      canvas.width = 1200;
+      canvas.height = 1680;
 
-    clearInterval(interval);
-    setGenerationProgress(100);
+      await renderInvitationToCanvas(canvas, {
+        categoryId: selectedCategory.id,
+        templateName: template.name,
+        formData: formData as Record<string, string>,
+        customization,
+        background: template.backgroundVariants[customization.backgroundVariant] || template.background,
+        defaultText: template.defaultText,
+      });
 
-    // Save to local store
-    const invitation = {
-      id: `inv_${Date.now()}`,
-      categoryId: selectedCategory?.id || '',
-      templateId: selectedTemplate?.id || '',
-      formData: formData as Record<string, string>,
-      customization,
-      title: (formData.title || formData.eventTitle || formData.hostName || 'Dəvət') as string,
-      status: 'COMPLETED' as const,
-      createdAt: new Date().toISOString(),
-    };
+      clearInterval(progressInterval);
+      setGenerationProgress(100);
 
-    addInvitation(invitation);
+      await new Promise((r) => setTimeout(r, 200));
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+      const invitation = {
+        id: `inv_${Date.now()}`,
+        categoryId: selectedCategory?.id || '',
+        templateId: selectedTemplate?.id || '',
+        formData: { ...formData } as Record<string, string>,
+        customization,
+        title: (formData.title || formData.eventTitle || formData.hostName || 'Dəvət') as string,
+        status: 'COMPLETED' as const,
+        createdAt: new Date().toISOString(),
+      };
 
-    setGenerating(false);
-    nextStep();
+      addInvitation(invitation);
+      setGenerating(false);
+      nextStep();
+    } catch {
+      clearInterval(progressInterval);
+      setGenerating(false);
+    }
   }, [isGenerating, selectedCategory, selectedTemplate, formData, customization, setGenerating, setGenerationProgress, nextStep, addInvitation]);
 
   return (
     <div className="space-y-4">
+      <canvas ref={canvasRef} className="hidden" />
+
       <div className="text-center">
         <h1 className="text-2xl font-bold">Kartı yaradın</h1>
         <p className="mt-1 text-sm text-muted-foreground">

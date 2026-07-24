@@ -5,6 +5,8 @@ import { createContext, useContext, useEffect, useState, useMemo, useCallback } 
 interface TelegramContextValue {
   webApp: WebApp | null;
   user: TelegramUser | null;
+  theme: 'light' | 'dark';
+  themeParams: Record<string, string>;
   ready: () => void;
   expand: () => void;
   close: () => void;
@@ -80,6 +82,16 @@ export function TelegramProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const theme = useMemo<'light' | 'dark'>(
+    () => (webApp?.colorScheme === 'dark' ? 'dark' : 'light'),
+    [webApp?.colorScheme],
+  );
+
+  const themeParams = useMemo<Record<string, string>>(
+    () => webApp?.themeParams || {},
+    [webApp?.themeParams],
+  );
+
   const ready = useCallback(() => webApp?.ready(), [webApp]);
   const expand = useCallback(() => webApp?.expand(), [webApp]);
   const close = useCallback(() => webApp?.close(), [webApp]);
@@ -89,12 +101,14 @@ export function TelegramProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<TelegramContextValue>(() => ({
     webApp,
     user,
+    theme,
+    themeParams,
     ready,
     expand,
     close,
     showAlert,
     hapticFeedback,
-  }), [webApp, user, ready, expand, close, showAlert, hapticFeedback]);
+  }), [webApp, user, theme, themeParams, ready, expand, close, showAlert, hapticFeedback]);
 
   return (
     <TelegramContext.Provider value={value}>

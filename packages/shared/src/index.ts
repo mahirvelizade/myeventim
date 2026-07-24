@@ -11,3 +11,5 @@ export { StorageService } from './services/storage.service';
 export type { IStorageService } from './services/storage.service';
 export { LRUCache } from './services/cache.service';
 export { observability } from './services/observability';
+export { renderInvitationToCanvas } from './services/invitation-renderer';
+export type { RenderData } from './services/invitation-renderer';
